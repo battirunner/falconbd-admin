@@ -1,11 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+// import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
-import DefaultLayout from '../../layout/DefaultLayout';
+// import DefaultLayout from '../../layout/DefaultLayout';
 
 const SignIn: React.FC = () => {
+  const onFinish = (e: any) => {
+    // e.precentDefa
+    e.preventDefault();
+    const values = {
+      email: e.target[0].value,
+      password: e.target[1].value,
+    };
+    console.log('check form', values);
+  };
   return (
     // <DefaultLayout>
     <>
@@ -157,7 +166,7 @@ const SignIn: React.FC = () => {
                 Sign In to TailAdmin
               </h2>
 
-              <form>
+              <form onSubmit={onFinish}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
@@ -283,9 +292,9 @@ const SignIn: React.FC = () => {
                       ></path>
                       <path
                         fill="#FAFAFA"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M13.5 8H11V6c0-.552.448-.5 1-.5h1V3h-2a3 3 0 0 0-3 3v2H6v2.5h2V16h3v-5.5h1.5l1-2.5z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       ></path>
                     </svg>
                   </span>
