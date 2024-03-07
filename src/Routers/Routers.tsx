@@ -14,6 +14,7 @@ import Settings from '../pages/Settings';
 import Tables from '../pages/Tables';
 import Alerts from '../pages/UiElements/Alerts';
 import Buttons from '../pages/UiElements/Buttons';
+import Visa from '../pages/Visa';
 import Logout from './../pages/Logout/Logout';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -79,6 +80,15 @@ const Routers = () => {
             <>
               <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <Tables />
+            </>
+          }
+        />
+        <Route
+          path="/visa"
+          element={
+            <>
+              <PageTitle title="Visa | Flying Bird Admin" />
+              <Visa />
             </>
           }
         />
