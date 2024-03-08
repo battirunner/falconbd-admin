@@ -2,10 +2,10 @@ import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { Popconfirm, message } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import Loader from '../../common/Loader';
 import { AuthState } from '../../types/authState';
-import { Link } from 'react-router-dom';
 
 // const fetcher = async (url: string) => {
 //   try {
@@ -27,7 +27,9 @@ const TableTwo = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/visa`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/tours?tourType=Hajj`,
+      );
       setLoading(false);
       setData(res.data.data);
       console.log('from fetch: ', res.data.data);
@@ -51,7 +53,7 @@ const TableTwo = () => {
     setLoading(true);
     try {
       const res = await axios.delete(
-        `${import.meta.env.VITE_BASE_ADMIN_URL}/visa/${id}`,
+        `${import.meta.env.VITE_BASE_ADMIN_URL}/tours/${id}`,
         {
           headers: {
             //@ts-ignore
@@ -134,20 +136,32 @@ const TableTwo = () => {
       ) : data ? (
         <>
           <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-            <div className="col-span-2 flex items-center">
+            <div className="col-span-1 flex items-center">
               <p className="font-medium">Title</p>
             </div>
             <div className="col-span-1 flex items-center">
-              <p className="font-medium">Country</p>
+              <p className="font-medium">Location</p>
+            </div>
+            <div className="col-span-1 flex items-center">
+              <p className="font-medium">Tour Type</p>
             </div>
             <div className="col-span-1 hidden items-center sm:flex">
               <p className="font-medium">Visa Type</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Validity</p>
+            <div className="col-span-1 hidden items-center sm:flex">
+              <p className="font-medium">Departure Location</p>
             </div>
             <div className="col-span-1 flex items-center">
-              <p className="font-medium">Minimum Stay</p>
+              <p className="font-medium">Duration</p>
+            </div>
+            <div className="col-span-1 flex items-center">
+              <p className="font-medium">Guests</p>
+            </div>
+            <div className="col-span-1 flex items-center">
+              <p className="font-medium">Start Date</p>
+            </div>
+            <div className="col-span-1 flex items-center">
+              <p className="font-medium">End Date</p>
             </div>
             <div className="col-span-1 flex items-center">
               <p className="font-medium">Price</p>
@@ -157,41 +171,65 @@ const TableTwo = () => {
             </div>
           </div>
           {/* @ts-ignore */}
-          {data.map((visa) => (
+          {data.map((tourPackage) => (
             <div
               className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
-              key={visa.id}
+              key={tourPackage.id}
             >
-              <div className="col-span-2 flex items-center">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <div className="h-12.5 w-15 rounded-md">
-                    {/* <img src={product.image} alt="Product" /> */}
-                  </div>
-                  <p className="text-sm text-black dark:text-white">
-                    {visa.title}
-                  </p>
-                </div>
+              <div className="col-span-1 flex items-center">
+                {/* <div className="flex flex-col gap-4 sm:flex-row sm:items-center"> */}
+                {/* <div className="h-12.5 w-15 rounded-md"> */}
+                {/* <img src={product.image} alt="Product" /> */}
+                {/* </div> */}
+                <p className="text-sm text-black dark:text-white">
+                  {tourPackage.title}
+                </p>
+                {/* </div> */}
               </div>
+
               <div className="col-span-1 hidden items-center sm:flex">
                 <p className="text-sm text-black dark:text-white">
-                  {visa.country}
+                  {tourPackage.Location.name}
+                </p>
+              </div>
+
+              <div className="col-span-1 flex items-center">
+                <p className="text-sm text-black dark:text-white">
+                  {tourPackage.tour_type.title}
+                </p>
+              </div>
+
+              <div className="col-span-1 flex items-center">
+                <p className="text-sm text-black dark:text-white">
+                  {tourPackage.visa_category.title}
                 </p>
               </div>
               <div className="col-span-1 flex items-center">
                 <p className="text-sm text-black dark:text-white">
-                  {visa.visa_category.title}
+                  {tourPackage.departure_location}
                 </p>
               </div>
+
               <div className="col-span-1 flex items-center">
                 <p className="text-sm text-black dark:text-white">
-                  {visa.validity}
+                  {tourPackage.duration}
                 </p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">{visa.min_stay}</p>
+                <p className="text-sm text-meta-3">{tourPackage.guests}</p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">৳{visa.price}</p>
+                <p className="text-sm text-meta-3">
+                  {tourPackage.start_datetime}
+                </p>
+              </div>
+              <div className="col-span-1 flex items-center">
+                <p className="text-sm text-meta-3">
+                  {tourPackage.end_datetime}
+                </p>
+              </div>
+              <div className="col-span-1 flex items-center">
+                <p className="text-sm text-meta-3">৳{tourPackage.price}</p>
               </div>
               <div className="col-span-1 flex items-center">
                 <div className="flex">
@@ -204,16 +242,14 @@ const TableTwo = () => {
                   <Popconfirm
                     title="Delete the visa"
                     description="Are you sure to delete this visa?"
-                    onConfirm={() => confirm(visa.id)}
+                    onConfirm={() => confirm(tourPackage.id)}
                     onCancel={cancel}
                     okText="Yes"
                     cancelText="No"
                   >
                     <Link
-                      to={`${
-                        import.meta.env.VITE_MAIN_FRONT_URL
-                      }/visa?country=${visa.country}&visaCategory=${
-                        visa.visa_category.title
+                      to={`${import.meta.env.VITE_MAIN_FRONT_URL}/tourdetails/${
+                        tourPackage.id
                       }`}
                       target="_blank"
                       rel="noopener noreferrer"

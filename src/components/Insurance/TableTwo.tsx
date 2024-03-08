@@ -110,7 +110,7 @@ const TableTwo = () => {
   const confirm = async (id: string) => {
     console.log(id);
     deleteData(id);
-    message.success('Deleted successfully!');
+    message.success('Click on Yes');
   };
   const cancel = (e: any) => {
     console.log(e);
