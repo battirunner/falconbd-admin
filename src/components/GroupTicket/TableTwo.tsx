@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../Redux/hooks';
 import Loader from '../../common/Loader';
 import { AuthState } from '../../types/authState';
-import { Link } from 'react-router-dom';
 
 // const fetcher = async (url: string) => {
 //   try {
@@ -110,7 +109,7 @@ const TableTwo = () => {
   const confirm = async (id: string) => {
     console.log(id);
     deleteData(id);
-    message.success('Deleted successfully!');
+    message.success('Click on Yes');
   };
   const cancel = (e: any) => {
     console.log(e);
@@ -209,19 +208,9 @@ const TableTwo = () => {
                     okText="Yes"
                     cancelText="No"
                   >
-                    <Link
-                      to={`${
-                        import.meta.env.VITE_MAIN_FRONT_URL
-                      }/visa?country=${visa.country}&visaCategory=${
-                        visa.visa_category.title
-                      }`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <button className="mx-2 text-blue-500 w-4">
-                        <EyeOutlined style={{ fontSize: '24px' }} />
-                      </button>
-                    </Link>
+                    <button className="mx-2 text-blue-500 w-4">
+                      <EyeOutlined style={{ fontSize: '24px' }} />
+                    </button>
                   </Popconfirm>
                 </div>
                 {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
