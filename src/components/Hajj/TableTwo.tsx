@@ -236,9 +236,6 @@ const TableTwo = () => {
                   <button className="mx-2 text-blue-500 w-4">
                     <EditOutlined style={{ fontSize: '24px' }} />
                   </button>
-                  <button className="mx-2 text-red-500 w-4 ">
-                    <DeleteOutlined style={{ fontSize: '24px' }} />
-                  </button>
                   <Popconfirm
                     title="Delete the visa"
                     description="Are you sure to delete this visa?"
@@ -247,6 +244,10 @@ const TableTwo = () => {
                     okText="Yes"
                     cancelText="No"
                   >
+                  <button className="mx-2 text-red-500 w-4 ">
+                    <DeleteOutlined style={{ fontSize: '24px' }} />
+                  </button>
+                  </Popconfirm>
                     <Link
                       to={`${import.meta.env.VITE_MAIN_FRONT_URL}/tourdetails/${
                         tourPackage.id
@@ -258,7 +259,7 @@ const TableTwo = () => {
                         <EyeOutlined style={{ fontSize: '24px' }} />
                       </button>
                     </Link>
-                  </Popconfirm>
+                  
                 </div>
                 {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
               </div>
