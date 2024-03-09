@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import SignIn from '../pages/Authentication/SignIn';
@@ -14,8 +14,15 @@ import Settings from '../pages/Settings';
 import Tables from '../pages/Tables';
 import Alerts from '../pages/UiElements/Alerts';
 import Buttons from '../pages/UiElements/Buttons';
+import Visa from '../pages/Visa';
+import Hajj from '../pages/Hajj';
+import Umrah from '../pages/Umrah';
+import Insurance from '../pages/Insurance';
+import GroupTicket from '../pages/GroupTicket';
+import Tours from '../pages/Tours';
 import Logout from './../pages/Logout/Logout';
 import ProtectedRoute from './ProtectedRoute';
+import Loader from '../common/Loader';
 
 const Routers = () => {
   const { pathname } = useLocation();
@@ -32,7 +39,7 @@ const Routers = () => {
           index
           element={
             <>
-              <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="eCommerce Dashboard | Flying Bird Admin" />
               <ECommerce />
             </>
           }
@@ -41,7 +48,7 @@ const Routers = () => {
           path="/calendar"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Calendar | Flying Bird Admin" />
               <Calendar />
             </>
           }
@@ -50,7 +57,7 @@ const Routers = () => {
           path="/profile"
           element={
             <>
-              <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Profile | Flying Bird Admin" />
               <Profile />
             </>
           }
@@ -59,7 +66,7 @@ const Routers = () => {
           path="/forms/form-elements"
           element={
             <>
-              <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Form Elements | Flying Bird Admin" />
               <FormElements />
             </>
           }
@@ -68,7 +75,7 @@ const Routers = () => {
           path="/forms/form-layout"
           element={
             <>
-              <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Form Layout | Flying Bird Admin" />
               <FormLayout />
             </>
           }
@@ -77,8 +84,70 @@ const Routers = () => {
           path="/tables"
           element={
             <>
-              <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Tables | Flying Bird Admin" />
               <Tables />
+            </>
+          }
+        />
+        <Route
+          path="/visa"
+          element={
+            <>
+              <PageTitle title="Visa | Flying Bird Admin" />
+              <Suspense fallback={<Loader/>}>
+                <Visa />
+              </Suspense>
+              
+            </>
+          }
+        />
+        <Route
+          path="/hajj"
+          element={
+            <>
+              <PageTitle title="Hajj | Flying Bird Admin" />
+              {/* <Visa /> */}
+              <Hajj/>
+            </>
+          }
+        />
+        <Route
+          path="/umrah"
+          element={
+            <>
+              <PageTitle title="Umrah | Flying Bird Admin" />
+              {/* <Visa /> */}
+              <Umrah />
+            </>
+          }
+        />
+        <Route
+          path="/insurance"
+          element={
+            <>
+              <PageTitle title="Insurance | Flying Bird Admin" />
+              {/* <Visa /> */}
+              <Insurance />
+            </>
+          }
+        />
+        <Route
+          path="/groupticket"
+          element={
+            <>
+              <PageTitle title="groupticket | Flying Bird Admin" />
+              {/* <Visa /> */}
+              <GroupTicket />
+            </>
+          }
+        />
+        <Route
+          path="/tours"
+          element={
+            <>
+              <PageTitle title="Tours | Flying Bird Admin" />
+              {/* <Visa /> */}
+              <Tours />
             </>
           }
         />
@@ -86,7 +155,7 @@ const Routers = () => {
           path="/settings"
           element={
             <>
-              <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Settings | Flying Bird Admin" />
               <Settings />
             </>
           }
@@ -95,7 +164,7 @@ const Routers = () => {
           path="/chart"
           element={
             <>
-              <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Basic Chart | Flying Bird Admin" />
               <Chart />
             </>
           }
@@ -104,7 +173,7 @@ const Routers = () => {
           path="/ui/alerts"
           element={
             <>
-              <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Alerts | Flying Bird Admin" />
               <Alerts />
             </>
           }
@@ -113,7 +182,7 @@ const Routers = () => {
           path="/ui/buttons"
           element={
             <>
-              <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Buttons | Flying Bird Admin" />
               <Buttons />
             </>
           }
@@ -132,7 +201,7 @@ const Routers = () => {
         path="/auth/signin"
         element={
           <>
-            <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+            <PageTitle title="Signin | Flying Bird Admin" />
             <SignIn />
           </>
         }
@@ -141,7 +210,7 @@ const Routers = () => {
         path="/auth/signup"
         element={
           <>
-            <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+            <PageTitle title="Signup | Flying Bird Admin" />
             <SignUp />
           </>
         }

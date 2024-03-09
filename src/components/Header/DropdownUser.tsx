@@ -9,7 +9,7 @@ const DropdownUser = () => {
   const userInfo = useAppSelector(
     (state) => state.auth.userInfo,
   ) as AuthState['userInfo'];
-  console.log(userInfo);
+  // console.log(userInfo);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
