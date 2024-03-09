@@ -205,9 +205,20 @@ const TableTwo = () => {
                     onCancel={cancel}
                     okText="Yes"
                     cancelText="No"
+                    okButtonProps={{
+                      style: {
+                        backgroundColor: '#1677ff',
+                      },
+                    }}
                   >
-                    <button className="mx-2 text-red-500 w-4 ">
-                      <DeleteOutlined style={{ fontSize: '24px' }} />
+                    <button className="btn-primary mx-2 text-red-500 w-4 ">
+                      <DeleteOutlined
+                        style={{
+                          fontSize: '24px',
+                          marginLeft: '2px',
+                          marginRight: '2px',
+                        }}
+                      />
                     </button>
                   </Popconfirm>
 
