@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Popconfirm, message } from 'antd';
+import { Pagination, PaginationProps, Popconfirm, message } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -23,15 +23,19 @@ const TableTwo = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
+  const [totalData, setTotalData] = useState();
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
-  const fetchData = async () => {
+  const fetchData = async (page:number,limit:number) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/tours?tourType=Hajj`,
+        `${import.meta.env.VITE_BASE_URL}/tours?tourType=Hajj&page=${page}&limit=${limit}`,
       );
       setLoading(false);
-      setData(res.data.data);
+      setData(res.data.data.result);
+      setTotalData(res.data.data.count);
       console.log('from fetch: ', res.data.data);
     } catch (error) {
       setLoading(false);
@@ -65,7 +69,7 @@ const TableTwo = () => {
       setLoading(false);
       // setData(res.data.data);
       console.log('from delete: ', res.data.data);
-      fetchData();
+      fetchData(page,limit);
       // return res.data.data;
     } catch (error) {
       setLoading(false);
@@ -84,7 +88,7 @@ const TableTwo = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(page,limit);
   }, []);
 
   // const { data, error, mutate } = useSWR(
@@ -114,10 +118,16 @@ const TableTwo = () => {
     deleteData(id);
     message.success('Deleted successfully!');
   };
-  const cancel = (e: any) => {
-    console.log(e);
-    // message.error('Click on No');
+
+  const onShowPageSizeChange: PaginationProps['onShowSizeChange'] = (
+    current,
+    pageSize,
+  ) => {
+    setPage(current);
+    setLimit(pageSize);
+    fetchData(current, pageSize);
   };
+ 
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -240,26 +250,29 @@ const TableTwo = () => {
                     title="Delete the visa"
                     description="Are you sure to delete this visa?"
                     onConfirm={() => confirm(tourPackage.id)}
-                    onCancel={cancel}
                     okText="Yes"
                     cancelText="No"
+                    okButtonProps={{
+                      style: {
+                        backgroundColor: '#1677ff',
+                      },
+                    }}
                   >
-                  <button className="mx-2 text-red-500 w-4 ">
-                    <DeleteOutlined style={{ fontSize: '24px' }} />
-                  </button>
+                    <button className="mx-2 text-red-500 w-4 ">
+                      <DeleteOutlined style={{ fontSize: '24px' }} />
+                    </button>
                   </Popconfirm>
-                    <Link
-                      to={`${import.meta.env.VITE_MAIN_FRONT_URL}/tourdetails/${
-                        tourPackage.id
-                      }`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <button className="mx-2 text-blue-500 w-4">
-                        <EyeOutlined style={{ fontSize: '24px' }} />
-                      </button>
-                    </Link>
-                  
+                  <Link
+                    to={`${import.meta.env.VITE_MAIN_FRONT_URL}/tourdetails/${
+                      tourPackage.id
+                    }`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="mx-2 text-blue-500 w-4">
+                      <EyeOutlined style={{ fontSize: '24px' }} />
+                    </button>
+                  </Link>
                 </div>
                 {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
               </div>
@@ -267,6 +280,18 @@ const TableTwo = () => {
           ))}
         </>
       ) : null}
+      <div className="flex items-center justify-center m-4">
+        <Pagination
+          showSizeChanger
+          onShowSizeChange={onShowPageSizeChange}
+          defaultCurrent={1}
+          pageSize={limit}
+          total={totalData}
+          onChange={(page, pageSize) => {
+            fetchData(page, pageSize);
+          }}
+        />
+      </div>
     </div>
   );
 };
