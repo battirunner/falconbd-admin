@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { FaMosque, FaPlane } from 'react-icons/fa';
 import { LiaCcVisa } from 'react-icons/lia';
-import { PiMosqueFill } from 'react-icons/pi';
+import { PiMosqueFill, PiUsersThreeBold } from 'react-icons/pi';
 import { RxDashboard } from 'react-icons/rx';
 import { SiYourtraveldottv } from 'react-icons/si';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -276,6 +276,75 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               {/* <!-- Menu Item Tables --> */}
 
+              {/* menu item users */}
+              <SidebarLinkGroup
+                activeCondition={
+                  pathname === '/users' || pathname.includes('users')
+                }
+              >
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <NavLink
+                        to="#"
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          (pathname === '/users' ||
+                            pathname.includes('users')) &&
+                          'bg-graydark dark:bg-meta-4'
+                        }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded
+                            ? handleClick()
+                            : setSidebarExpanded(true);
+                        }}
+                      >
+                        <PiUsersThreeBold />
+                        Users
+                        {open ? (
+                          <UpCircleOutlined style={{ marginLeft: 'auto' }} />
+                        ) : (
+                          <DownCircleOutlined style={{ marginLeft: 'auto' }} />
+                        )}
+                      </NavLink>
+                      {/* <!-- Dropdown Menu Start --> */}
+                      <div
+                        className={`translate transform overflow-hidden ${
+                          !open && 'hidden'
+                        }`}
+                      >
+                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                          <li>
+                            <NavLink
+                              to="/users/all-users"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              All Users
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/users/add-user"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Add User
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* <!-- Dropdown Menu End --> */}
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
+              {/* menu item users */}
+
               {/* menu item visa */}
               <SidebarLinkGroup
                 activeCondition={
@@ -288,8 +357,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       <NavLink
                         to="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (pathname === '/visa' ||
-                            pathname.includes('visa')) &&
+                          (pathname === '/visa' || pathname.includes('visa')) &&
                           'bg-graydark dark:bg-meta-4'
                         }`}
                         onClick={(e) => {
@@ -367,8 +435,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       <NavLink
                         to="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (pathname === '/hajj' ||
-                            pathname.includes('hajj')) &&
+                          (pathname === '/hajj' || pathname.includes('hajj')) &&
                           'bg-graydark dark:bg-meta-4'
                         }`}
                         onClick={(e) => {
@@ -596,7 +663,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* menu item groupticket */}
               <SidebarLinkGroup
                 activeCondition={
-                  pathname === '/groupticket' || pathname.includes('groupticket')
+                  pathname === '/groupticket' ||
+                  pathname.includes('groupticket')
                 }
               >
                 {(handleClick, open) => {
@@ -762,7 +830,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     'bg-graydark dark:bg-meta-4'
                   }`}
                 >
-                  <SettingFilled/>
+                  <SettingFilled />
                   Settings
                 </NavLink>
               </li>
