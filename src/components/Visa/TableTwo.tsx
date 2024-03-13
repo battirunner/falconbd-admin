@@ -1,20 +1,11 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Popconfirm, message } from 'antd';
+import { Pagination, PaginationProps, Popconfirm, message } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../Redux/hooks';
 import Loader from '../../common/Loader';
 import { AuthState } from '../../types/authState';
 import { Link } from 'react-router-dom';
-
-// const fetcher = async (url: string) => {
-//   try {
-//     const res = await axios.get(url);
-//     return res;
-//   } catch (error) {
-//     return error;
-//   }
-// };
 
 const TableTwo = () => {
   const userInfo = useAppSelector(
@@ -23,13 +14,19 @@ const TableTwo = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
+  const [totalData, setTotalData] = useState();
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
-  const fetchData = async () => {
+  const fetchData = async (page:number, limit:number) => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/visa`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/visa?page=${page}&limit=${limit}`,
+      );
       setLoading(false);
-      setData(res.data.data);
+      setData(res.data.data.result);
+      setTotalData(res.data.data.count);
       console.log('from fetch: ', res.data.data);
     } catch (error) {
       setLoading(false);
@@ -63,7 +60,7 @@ const TableTwo = () => {
       setLoading(false);
       // setData(res.data.data);
       console.log('from delete: ', res.data.data);
-      fetchData();
+      fetchData(page,limit);
       // return res.data.data;
     } catch (error) {
       setLoading(false);
@@ -82,39 +79,22 @@ const TableTwo = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(page,limit);
   }, []);
-
-  // const { data, error, mutate } = useSWR(
-  //   `${import.meta.env.VITE_BASE_URL}/visa`,
-
-  //   {
-  //     suspense: true,
-  //   }
-  // );
-  // if (error) {
-  //   message.error(error);
-  // } else {
-  //   console.log('check data', data);
-  //   //@ts-ignore
-  //   if(data?.response?.data?.errors){
-  //     //@ts-ignore
-  //     message.error(data?.response?.data?.errors);
-  //   } else {
-  //     //@ts-ignore
-  //     message.error(data?.message)
-  //   }
-
-  // }
 
   const confirm = async (id: string) => {
     console.log(id);
     deleteData(id);
     message.success('Deleted successfully!');
   };
-  const cancel = (e: any) => {
-    console.log(e);
-    // message.error('Click on No');
+
+  const onShowPageSizeChange: PaginationProps['onShowSizeChange'] = (
+    current,
+    pageSize,
+  ) => {
+    setPage(current);
+    setLimit(pageSize);
+    fetchData(current, pageSize);
   };
 
   return (
@@ -164,9 +144,9 @@ const TableTwo = () => {
             >
               <div className="col-span-2 flex items-center">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <div className="h-12.5 w-15 rounded-md">
-                    {/* <img src={product.image} alt="Product" /> */}
-                  </div>
+                  {/* <div className="h-12.5 w-15 rounded-md">
+                    <img src={product.image} alt="Product" />
+                  </div> */}
                   <p className="text-sm text-black dark:text-white">
                     {visa.title}
                   </p>
@@ -202,7 +182,6 @@ const TableTwo = () => {
                     title="Delete the visa"
                     description="Are you sure to delete this visa?"
                     onConfirm={() => confirm(visa.id)}
-                    onCancel={cancel}
                     okText="Yes"
                     cancelText="No"
                     okButtonProps={{
@@ -240,6 +219,18 @@ const TableTwo = () => {
           ))}
         </>
       ) : null}
+      <div className="flex items-center justify-center m-4">
+        <Pagination
+          showSizeChanger
+          onShowSizeChange={onShowPageSizeChange}
+          defaultCurrent={1}
+          pageSize={limit}
+          total={totalData}
+          onChange={(page, pageSize) => {
+            fetchData(page, pageSize);
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -1,11 +1,11 @@
-import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import TableTwo from '../components/Hajj/TableTwo';
-import DefaultLayout from '../layout/DefaultLayout';
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import TableTwo from '../../components/Insurance/TableTwo';
+import DefaultLayout from '../../layout/DefaultLayout';
 
 const Tables = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Hajj" />
+      <Breadcrumb pageName="Insurance" />
 
       <div className="flex flex-col gap-10">
         {/* <TableOne /> */}
