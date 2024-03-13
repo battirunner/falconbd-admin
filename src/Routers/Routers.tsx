@@ -27,6 +27,7 @@ import UmrahBookingRequest from '../pages/Umrah/BookingRequests';
 import TourBookingRequest from '../pages/Tours/BookingRequests';
 import InsuranceBookingRequest from '../pages/Insurance/BookingRequests';
 import GroupTicketBookingRequest from '../pages/GroupTicket/BookingRequests';
+import Users from '../pages/Users/Users';
 import Logout from './../pages/Logout/Logout';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -92,6 +93,17 @@ const Routers = () => {
             <>
               <PageTitle title="Tables | Flying Bird Admin" />
               <Tables />
+            </>
+          }
+        />
+        <Route
+          path="/users/all-users"
+          element={
+            <>
+              <PageTitle title="Users | Flying Bird Admin" />
+              <Suspense fallback={<Loader />}>
+                <Users />
+              </Suspense>
             </>
           }
         />
