@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Popconfirm, message } from 'antd';
+import { Pagination, PaginationProps, Popconfirm, message } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../Redux/hooks';
@@ -22,13 +22,19 @@ const TableTwo = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
+  const [totalData, setTotalData] = useState();
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
-  const fetchData = async () => {
+  const fetchData = async (page: number, limit: number) => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/visa`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/groupticket?page=${page}&limit=${limit}`,
+      );
       setLoading(false);
-      setData(res.data.data);
+      setData(res.data.data.result);
+      setTotalData(res.data.data.count);
       console.log('from fetch: ', res.data.data);
     } catch (error) {
       setLoading(false);
@@ -50,7 +56,7 @@ const TableTwo = () => {
     setLoading(true);
     try {
       const res = await axios.delete(
-        `${import.meta.env.VITE_BASE_ADMIN_URL}/visa/${id}`,
+        `${import.meta.env.VITE_BASE_ADMIN_URL}/groupticket/${id}`,
         {
           headers: {
             //@ts-ignore
@@ -62,7 +68,7 @@ const TableTwo = () => {
       setLoading(false);
       // setData(res.data.data);
       console.log('from delete: ', res.data.data);
-      fetchData();
+      fetchData(page, limit);
       // return res.data.data;
     } catch (error) {
       setLoading(false);
@@ -81,9 +87,8 @@ const TableTwo = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(page, limit);
   }, []);
-
   // const { data, error, mutate } = useSWR(
   //   `${import.meta.env.VITE_BASE_URL}/visa`,
 
@@ -109,11 +114,16 @@ const TableTwo = () => {
   const confirm = async (id: string) => {
     console.log(id);
     deleteData(id);
-    message.success('Click on Yes');
+    message.success('Deleted successfully!');
   };
-  const cancel = (e: any) => {
-    console.log(e);
-    // message.error('Click on No');
+
+  const onShowPageSizeChange: PaginationProps['onShowSizeChange'] = (
+    current,
+    pageSize,
+  ) => {
+    setPage(current);
+    setLimit(pageSize);
+    fetchData(current, pageSize);
   };
 
   return (
@@ -133,20 +143,23 @@ const TableTwo = () => {
       ) : data ? (
         <>
           <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-            <div className="col-span-2 flex items-center">
-              <p className="font-medium">Title</p>
-            </div>
             <div className="col-span-1 flex items-center">
               <p className="font-medium">Country</p>
             </div>
+            <div className="col-span-1 flex items-center">
+              <p className="font-medium">Start Place</p>
+            </div>
             <div className="col-span-1 hidden items-center sm:flex">
-              <p className="font-medium">Visa Type</p>
+              <p className="font-medium">End Place</p>
+            </div>
+            <div className="col-span-1 hidden items-center sm:flex">
+              <p className="font-medium">Paths</p>
             </div>
             <div className="col-span-1 flex items-center">
-              <p className="font-medium">Validity</p>
+              <p className="font-medium">Baggage</p>
             </div>
             <div className="col-span-1 flex items-center">
-              <p className="font-medium">Minimum Stay</p>
+              <p className="font-medium">Policy</p>
             </div>
             <div className="col-span-1 flex items-center">
               <p className="font-medium">Price</p>
@@ -156,62 +169,84 @@ const TableTwo = () => {
             </div>
           </div>
           {/* @ts-ignore */}
-          {data.map((visa) => (
+          {data.map((groupTicket) => (
             <div
               className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
-              key={visa.id}
+              key={groupTicket.id}
             >
-              <div className="col-span-2 flex items-center">
+              <div className="col-span-1 flex items-center">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <div className="h-12.5 w-15 rounded-md">
-                    {/* <img src={product.image} alt="Product" /> */}
-                  </div>
+                  {/* <div className="h-12.5 w-15 rounded-md">
+                    <img src={product.image} alt="Product" />
+                  </div> */}
                   <p className="text-sm text-black dark:text-white">
-                    {visa.title}
+                    {groupTicket.country}
                   </p>
                 </div>
               </div>
               <div className="col-span-1 hidden items-center sm:flex">
                 <p className="text-sm text-black dark:text-white">
-                  {visa.country}
+                  {groupTicket.start_place}
+                </p>
+              </div>
+              <div className="col-span-1 hidden items-center sm:flex">
+                <p className="text-sm text-black dark:text-white">
+                  {groupTicket.end_place}
+                </p>
+              </div>
+
+              <div className="col-span-1 flex items-center">
+                {groupTicket.ticket_path.map((ticketPath: any) => (
+                  <>
+                    <p
+                      key={ticketPath.id}
+                      className="text-sm text-black dark:text-white"
+                    >
+                      {ticketPath.arrival_place}
+                    </p>
+                    &ensp;
+                  </>
+                ))}
+              </div>
+              <div className="col-span-1 flex items-center">
+                <p className="text-sm text-black dark:text-white">
+                  {groupTicket.baggage}
                 </p>
               </div>
               <div className="col-span-1 flex items-center">
                 <p className="text-sm text-black dark:text-white">
-                  {visa.visa_category.title}
+                  {groupTicket.policy}
                 </p>
               </div>
+
               <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {visa.validity}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">{visa.min_stay}</p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">৳{visa.price}</p>
+                <p className="text-sm text-meta-3">৳{groupTicket.price}</p>
               </div>
               <div className="col-span-1 flex items-center">
                 <div className="flex">
                   <button className="mx-2 text-blue-500 w-4">
                     <EditOutlined style={{ fontSize: '24px' }} />
                   </button>
-                  <button className="mx-2 text-red-500 w-4 ">
-                    <DeleteOutlined style={{ fontSize: '24px' }} />
-                  </button>
                   <Popconfirm
-                    title="Delete the visa"
-                    description="Are you sure to delete this visa?"
-                    onConfirm={() => confirm(visa.id)}
-                    onCancel={cancel}
+                    title="Delete the GroupTicket"
+                    description="Are you sure to delete this GroupTicket?"
+                    onConfirm={() => confirm(groupTicket.id)}
                     okText="Yes"
                     cancelText="No"
+                    okButtonProps={{
+                      style: {
+                        backgroundColor: '#1677ff',
+                      },
+                    }}
                   >
-                    <button className="mx-2 text-blue-500 w-4">
-                      <EyeOutlined style={{ fontSize: '24px' }} />
+                    <button className="mx-2 text-red-500 w-4 ">
+                      <DeleteOutlined style={{ fontSize: '24px' }} />
                     </button>
                   </Popconfirm>
+
+                  <button className="mx-2 text-blue-500 w-4">
+                    <EyeOutlined style={{ fontSize: '24px' }} />
+                  </button>
                 </div>
                 {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
               </div>
@@ -219,6 +254,18 @@ const TableTwo = () => {
           ))}
         </>
       ) : null}
+      <div className="flex items-center justify-center m-4">
+        <Pagination
+          showSizeChanger
+          onShowSizeChange={onShowPageSizeChange}
+          defaultCurrent={1}
+          pageSize={limit}
+          total={totalData}
+          onChange={(page, pageSize) => {
+            fetchData(page, pageSize);
+          }}
+        />
+      </div>
     </div>
   );
 };
