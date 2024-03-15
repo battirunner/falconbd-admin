@@ -169,102 +169,92 @@ const TableTwo = () => {
         </>
       ) : data ? (
         <>
-          <div className="grid grid-cols-12 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Name</p>
+          <div className="grid grid-cols-12 border-t border-stroke py-1 px-2 dark:border-strokedark sm:grid-cols-12 md:px-2 2xl:px-7.5 bg-slate-300">
+            <div className="col-span-1">
+              <p className="font-medium py-4 text-center">User Details</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Email</p>
+            <div className="col-span-2">
+              <p className="font-medium py-4 text-center">Address</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Address</p>
+            <div className="col-span-2">
+              <p className="font-medium py-4 text-center">Notes</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Contact</p>
+            <div className="col-span-1">
+              <p className="font-medium py-4 text-center">Title</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Notes</p>
+            <div className="col-span-1">
+              <p className="font-medium py-4 text-center">Location</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Item Title</p>
+            <div className="col-span-1">
+              <p className="font-medium py-4 text-center">Booking</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Location</p>
+            <div className="col-span-1">
+              <p className="font-medium p-1 text-center">Payment Status</p>
             </div>
-            <div className="col-span-1 flex items-center sm:flex">
-              <p className="font-medium">Booking Date</p>
+            <div className="col-span-1">
+              <p className="font-medium p-1 text-center">Approval Status</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Payment Status</p>
+            <div className="col-span-1">
+              <p className="font-medium py-4 text-center">Price</p>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Approval Status</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Price</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Action</p>
+            <div className="col-span-1">
+              <p className="font-medium py-4 text-center">Action</p>
             </div>
           </div>
           {/* @ts-ignore */}
           {data.map((bookingItem) => (
             <div
-              className="grid grid-cols-12 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
+              className="grid grid-cols-12 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-12 md:px-6 2xl:px-7.5"
               key={bookingItem.main_id}
             >
-              <div className="col-span-1 flex items-center">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="col-span-1">
+                <div className="gap-4 sm:flex-row sm:items-center">
                   {/* <div className="h-12.5 w-15 rounded-md">
                     <img src={product.image} alt="Product" />
                   </div> */}
                   <p className="text-sm text-black dark:text-white">
                     {bookingItem.name}
                   </p>
+                  <p className="text-sm text-black dark:text-white">
+                    {bookingItem.email}
+                  </p>
+                  <p className="text-sm text-black dark:text-white">
+                    {bookingItem.booking_user_contact}
+                  </p>
                 </div>
               </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.email}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
+              <div className="col-span-2 sm:flex">
+                <p className="text-sm text-black dark:text-white p-2 text-center">
                   {bookingItem.booking_user_address}
                 </p>
               </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.booking_user_contact}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
+              <div className="col-span-2 sm:flex">
+                <p className="text-sm text-black dark:text-white p-2 text-center">
                   {bookingItem.booking_user_notes}
                 </p>
               </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
+              <div className="col-span-1 sm:flex">
+                <p className="text-sm text-black dark:text-white text-center">
                   {bookingItem.title}
                 </p>
               </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.country}
+              <div className="col-span-1">
+                <p className="text-sm text-black dark:text-white text-center">
+                  {bookingItem.country ? bookingItem.country : 'Bangladesh'}
                 </p>
               </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
+              <div className="col-span-1">
+                <p className="text-sm text-black dark:text-white text-center">
                   {bookingItem.booking_datetime}
                 </p>
               </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
+              <div className="col-span-1">
+                <p className="text-sm text-black dark:text-white text-center">
                   {bookingItem.payment_status}
                 </p>
               </div>
-              <div className="col-span-1 flex items-center">
-                <span className="text-sm text-black dark:text-white">
+              <div className="col-span-1">
+                <span className="text-sm text-black dark:text-white text-center">
                   {editApprovalStatus ? (
                     <Select
                       showSearch
@@ -324,10 +314,12 @@ const TableTwo = () => {
                   )}
                 </span>
               </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">৳{bookingItem.price}</p>
+              <div className="col-span-1">
+                <p className="text-sm text-meta-3 text-center">
+                  ৳{bookingItem.price}
+                </p>
               </div>
-              <div className="col-span-1 flex items-center">
+              <div className="col-span-1">
                 <div className="flex">
                   <button className="mx-2 text-blue-500 w-4">
                     <EditOutlined style={{ fontSize: '24px' }} />
