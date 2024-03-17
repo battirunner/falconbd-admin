@@ -28,6 +28,8 @@ import TourBookingRequest from '../pages/Tours/BookingRequests';
 import InsuranceBookingRequest from '../pages/Insurance/BookingRequests';
 import GroupTicketBookingRequest from '../pages/GroupTicket/BookingRequests';
 import Users from '../pages/Users/Users';
+import Airports from '../pages/Airports/Airports';
+import Country from '../pages/Country/Country';
 import Logout from './../pages/Logout/Logout';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -103,6 +105,28 @@ const Routers = () => {
               <PageTitle title="Users | Flying Bird Admin" />
               <Suspense fallback={<Loader />}>
                 <Users />
+              </Suspense>
+            </>
+          }
+        />
+       < Route
+          path="/airports/all-airports"
+          element={
+            <>
+              <PageTitle title="Airports | Flying Bird Admin" />
+              <Suspense fallback={<Loader />}>
+                <Airports />
+              </Suspense>
+            </>
+          }
+        />
+        < Route
+          path="/country/all-country"
+          element={
+            <>
+              <PageTitle title="Country | Flying Bird Admin" />
+              <Suspense fallback={<Loader />}>
+                <Country />
               </Suspense>
             </>
           }
