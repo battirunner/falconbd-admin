@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../../Redux/hooks';
 import Loader from '../../../common/Loader';
 import { AuthState } from '../../../types/authState';
+import Status from './Status';
 
 const TableTwo = () => {
   const userInfo = useAppSelector(
@@ -154,240 +155,192 @@ const TableTwo = () => {
   };
 
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      {loading ? (
-        <>
-          <Loader />
-        </>
-      ) : error ? (
-        <>
-          <div className="py-6 px-4 md:px-6 xl:px-7.5">
-            <h4 className="text-xl font-semibold text-black dark:text-white text-center">
-              {error}
-            </h4>
-          </div>
-        </>
-      ) : data ? (
-        <>
-          <div className="grid grid-cols-12 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Name</p>
+    <>
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        {loading ? (
+          <>
+            <Loader />
+          </>
+        ) : error ? (
+          <>
+            <div className="py-6 px-4 md:px-6 xl:px-7.5">
+              <h4 className="text-xl font-semibold text-black dark:text-white text-center">
+                {error}
+              </h4>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Email</p>
+          </>
+        ) : data ? (
+          <>
+            <div className="grid grid-cols-12 font-bold border-t border-stroke py-1 px-2 dark:border-strokedark sm:grid-cols-12 md:px-2 2xl:px-7.5 bg-slate-300">
+              <div className="col-span-1">
+                <p className="py-4 text-center">User Details</p>
+              </div>
+              <div className="col-span-2">
+                <p className="py-4 text-center">Address</p>
+              </div>
+              <div className="col-span-2">
+                <p className="py-4 text-center">Notes</p>
+              </div>
+              <div className="col-span-1">
+                <p className="py-4 text-center">Title</p>
+              </div>
+              <div className="col-span-1">
+                <p className="py-4 text-center">Location</p>
+              </div>
+              <div className="col-span-1">
+                <p className="py-4 text-center">Booking</p>
+              </div>
+              <div className="col-span-1">
+                <p className="p-1 text-center">Payment Status</p>
+              </div>
+              <div className="col-span-1">
+                <p className="p-1 text-center">Approval Status</p>
+              </div>
+              <div className="col-span-1">
+                <p className="py-4 text-center">Price</p>
+              </div>
+              <div className="col-span-1">
+                <p className="py-4 text-center">Action</p>
+              </div>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Address</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Contact</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Customer Notes</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Item Title</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Location</p>
-            </div>
-            <div className="col-span-1 flex items-center sm:flex">
-              <p className="font-medium">Booking Date</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Payment Status</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Approval Status</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Price</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Action</p>
-            </div>
-          </div>
-          {/* @ts-ignore */}
-          {data.map((bookingItem) => (
-            <div
-              className="grid grid-cols-12 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
-              key={bookingItem.main_id}
-            >
-              <div className="col-span-1 flex items-center">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  {/* <div className="h-12.5 w-15 rounded-md">
+            {/* @ts-ignore */}
+            {data.map((bookingItem) => (
+              <div
+                className="grid grid-cols-12 border-t font-medium border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-12 md:px-6 2xl:px-7.5"
+                key={bookingItem.main_id}
+              >
+                <div className="col-span-1">
+                  <div className="gap-4 sm:flex-row sm:items-center">
+                    {/* <div className="h-12.5 w-15 rounded-md">
                     <img src={product.image} alt="Product" />
                   </div> */}
-                  <p className="text-sm text-black dark:text-white">
-                    {bookingItem.name}
+                    <p className="text-sm text-black dark:text-white">
+                      {bookingItem.name}
+                    </p>
+                    <p className="text-sm text-black dark:text-white">
+                      {bookingItem.email}
+                    </p>
+                    <p className="text-sm text-black dark:text-white">
+                      {bookingItem.booking_user_contact}
+                    </p>
+                  </div>
+                </div>
+                <div className="col-span-2 sm:flex">
+                  <p className="text-sm text-black dark:text-white p-2 text-center">
+                    {bookingItem.booking_user_address}
                   </p>
                 </div>
-              </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.email}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.booking_user_address}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.booking_user_contact}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.booking_user_notes}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.title}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.country}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.booking_datetime}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {bookingItem.payment_status}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <span className="text-sm text-black dark:text-white">
-                  {editApprovalStatus ? (
-                    <Select
-                      showSearch
-                      placeholder="Select a status"
-                      defaultValue={bookingItem.approval_status}
-                      optionFilterProp="children"
-                      onChange={(value) => {
-                        onApprovalStatusChange(bookingItem.main_id, value);
-                      }}
-                      options={[
-                        {
-                          value: 'PENDING',
-                          label: 'PENDING',
-                        },
-                        {
-                          value: 'PROCESSING',
-                          label: 'PROCESSING',
-                        },
-                        {
-                          value: 'READY_TO_RECEIVE',
-                          label: 'READY_TO_RECEIVE',
-                        },
-                        {
-                          value: 'RECEIVED',
-                          label: 'RECEIVED',
-                        },
-                        {
-                          value: 'COMPLETED',
-                          label: 'COMPLETED',
-                        },
-                      ]}
-                    />
-                  ) : (
-                    bookingItem.approval_status
-                  )}
-                </span>
-                &ensp;
-                <span className="text-sm text-black dark:text-white">
-                  {editApprovalStatus ? (
-                    <>
-                      <button
-                        className="mx-2 text-blue-500 w-4"
-                        onClick={() =>
-                          setEditApprovalStatus(!editApprovalStatus)
-                        }
-                      >
-                        <CloseSquareOutlined style={{ fontSize: '24px' }} />
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      className="mx-2 text-blue-500 w-4"
-                      onClick={() => setEditApprovalStatus(!editApprovalStatus)}
-                    >
+                <div className="col-span-2 sm:flex">
+                  <p className="text-sm text-black dark:text-white p-2 text-center break-words">
+                    {bookingItem.booking_user_notes}
+                  </p>
+                </div>
+                <div className="col-span-1 sm:flex">
+                  <p className="text-sm text-black dark:text-white text-center">
+                    {bookingItem.title}
+                  </p>
+                </div>
+                <div className="col-span-1">
+                  <p className="text-sm text-black dark:text-white text-center">
+                    {bookingItem.country ? bookingItem.country : 'Bangladesh'}
+                  </p>
+                </div>
+                <div className="col-span-1">
+                  <p className="text-sm text-black dark:text-white text-center">
+                    {bookingItem.booking_datetime}
+                  </p>
+                </div>
+                <div className="col-span-1">
+                  <p className="text-sm text-black dark:text-white text-center">
+                    {bookingItem.payment_status}
+                  </p>
+                </div>
+                <div className="col-span-1  text-center">
+                  <Status statusType={bookingItem.approval_status} />
+                </div>
+                <div className="col-span-1">
+                  <p className="text-sm text-meta-3 text-center">
+                    ৳{bookingItem.price}
+                  </p>
+                </div>
+                <div className="col-span-1">
+                  <div className="flex">
+                    <button className="mx-2 text-blue-500 w-4">
                       <EditOutlined style={{ fontSize: '24px' }} />
                     </button>
-                  )}
-                </span>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">৳{bookingItem.price}</p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <div className="flex">
-                  <button className="mx-2 text-blue-500 w-4">
-                    <EditOutlined style={{ fontSize: '24px' }} />
-                  </button>
-                  <Popconfirm
-                    title="Delete the booking"
-                    description="Are you sure to delete this booking?"
-                    onConfirm={() => confirm(bookingItem.main_id)}
-                    okText="Yes"
-                    cancelText="No"
-                    okButtonProps={{
-                      style: {
-                        backgroundColor: '#1677ff',
-                      },
-                    }}
-                  >
-                    <button className="btn-primary mx-2 text-red-500 w-4 ">
-                      <DeleteOutlined
-                        style={{
-                          fontSize: '24px',
-                          marginLeft: '2px',
-                          marginRight: '2px',
-                        }}
-                      />
-                    </button>
-                  </Popconfirm>
+                    <Popconfirm
+                      title="Delete the booking"
+                      description="Are you sure to delete this booking?"
+                      onConfirm={() => confirm(bookingItem.main_id)}
+                      okText="Yes"
+                      cancelText="No"
+                      okButtonProps={{
+                        style: {
+                          backgroundColor: '#1677ff',
+                        },
+                      }}
+                    >
+                      <button className="btn-primary mx-2 text-red-500 w-4 ">
+                        <DeleteOutlined
+                          style={{
+                            fontSize: '24px',
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                          }}
+                        />
+                      </button>
+                    </Popconfirm>
 
-                  {/* <Link
+                    {/* <Link
                     to={`${import.meta.env.VITE_MAIN_FRONT_URL}/visa?country=${
                       visa.country
                     }&visaCategory=${visa.visa_category.title}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   > */}
-                  <button className="mx-2 text-blue-500 w-4">
-                    <EyeOutlined style={{ fontSize: '24px' }} />
-                  </button>
-                  {/* </Link> */}
+                    <button className="mx-2 text-blue-500 w-4">
+                      <EyeOutlined style={{ fontSize: '24px' }} />
+                    </button>
+                    {/* </Link> */}
+                  </div>
+                  {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
                 </div>
-                {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
               </div>
-            </div>
-          ))}
-        </>
-      ) : null}
-      <div className="flex items-center justify-center m-4">
-        <Pagination
-          showSizeChanger
-          onShowSizeChange={onShowPageSizeChange}
-          defaultCurrent={1}
-          pageSize={limit}
-          total={totalData}
-          onChange={(page, pageSize) => {
-            setPage(page);
-            setLimit(pageSize);
-            fetchData(page, pageSize);
-          }}
-        />
+            ))}
+          </>
+        ) : null}
+        {/* <div className="flex items-center justify-center m-4">
+          <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowPageSizeChange}
+            defaultCurrent={1}
+            pageSize={limit}
+            total={totalData}
+            onChange={(page, pageSize) => {
+              setPage(page);
+              setLimit(pageSize);
+              fetchData(page, pageSize);
+            }}
+          />
+        </div> */}
       </div>
-    </div>
+      <div className="rounded text-right w-[280px] h-16 block ml-auto border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="flex items-center justify-center m-4">
+          <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowPageSizeChange}
+            defaultCurrent={1}
+            pageSize={limit}
+            total={totalData}
+            onChange={(page, pageSize) => {
+              setPage(page);
+              setLimit(pageSize);
+              fetchData(page, pageSize);
+            }}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -3,6 +3,11 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  safelist: [
+    {
+      pattern: /bg-(red|green|blue)-(100|200|300)/,
+    },
+  ],
   darkMode: 'class',
   theme: {
     fontFamily: {
