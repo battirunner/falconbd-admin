@@ -16,6 +16,7 @@ import {
   Row,
   Col,
 } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -29,6 +30,8 @@ const AddHajjForm: React.FC = () => {
   };
   const [value, setValue] = useState('');
   const [showPreview, setShowPreview] = useState(false);
+
+  console.log('value', value);
 
   return (
     <>
@@ -61,10 +64,10 @@ const AddHajjForm: React.FC = () => {
                 </button>
               </Row>
               <Row>
-                <Col span={8}>
+                <Col span={12}>
                   <Form
-                    labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 14 }}
+                    labelCol={{ span: 5 }}
+                    wrapperCol={{ span: 15 }}
                     layout="horizontal"
                     initialValues={{ size: componentSize }}
                     onValuesChange={onFormLayoutChange}
@@ -78,15 +81,58 @@ const AddHajjForm: React.FC = () => {
                     <Radio.Button value="large">Large</Radio.Button>
                   </Radio.Group>
                 </Form.Item> */}
-                    <Form.Item label="Input">
-                      <Input />
+                    <Form.Item label="Title">
+                      <Input placeholder="Example: 40 Days Shifting Hajj Package" />
                     </Form.Item>
+                    <Form.Item label="Duration">
+                      <Input placeholder="Example: 5 Days 3 Nights" />
+                    </Form.Item>
+                    <Row>
+                      <Col span={12}>
+                        <Form.Item label="Departure Date">
+                          <DatePicker />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Return Date">
+                          <DatePicker />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={12}>
+                        <Form.Item label="Price">
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Guests">
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={12}>
+                        <Form.Item label="Tour Type">
+                          <Select />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Location">
+                          <Select />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Form.Item label="Departure Location">
+                      <Input placeholder="Example: Hazrat Shahjalal International Airport" />
+                    </Form.Item>
+
                     {/* <Form.Item label="Select">
                     <Select>
                       <Select.Option value="demo">Demo</Select.Option>
                     </Select>
                   </Form.Item> */}
-                    <Form.Item label="TreeSelect">
+                    {/* <Form.Item label="TreeSelect">
                       <TreeSelect
                         treeData={[
                           {
@@ -117,13 +163,90 @@ const AddHajjForm: React.FC = () => {
                       <InputNumber />
                     </Form.Item>
                     <Form.Item label="Switch" valuePropName="checked">
-                      {/* <Switch /> */}
+                      <Switch />
                       <Input.TextArea />
-                    </Form.Item>
+                    </Form.Item> */}
                   </Form>
                 </Col>
-                <Col span={14}>
-                  <ReactQuill theme="snow" value={value} onChange={setValue} />
+                <Col span={12}>
+                  <p>Description:</p>
+                  <ReactQuill
+                    style={{ margin: '2%' }}
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                  />
+                </Col>
+                <Col span={12}>
+                  <p>Highlights:</p>
+                  <ReactQuill
+                    style={{ margin: '2%' }}
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                  />
+                </Col>
+                <Col span={12}>
+                  <p>Plan:</p>
+                  <p>Day:</p>
+                  <Input placeholder="Example: Day 1" />
+                  <p>Details of the day:</p>
+                  <TextArea />
+                  {/* <ReactQuill
+                    style={{ margin: '2%' }}
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                  /> */}
+                </Col>
+                <Col span={12}>
+                  <p>Included:</p>
+                  <ReactQuill
+                    style={{ margin: '2%' }}
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                  />
+                </Col>
+                <Col span={12}>
+                  <p>Not Included:</p>
+                  <ReactQuill
+                    style={{ margin: '2%' }}
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                  />
+                </Col>
+                <Col span={12}>
+                  <p>Terms:</p>
+                  <ReactQuill
+                    style={{ margin: '2%' }}
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                  />
+                </Col>
+                <Col span={12}>
+                  <p>Other Details:</p>
+                  <ReactQuill
+                    style={{ margin: '2%' }}
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                  />
+                </Col>
+                <Col span={12}>
+                  <p>FAQ:</p>
+                  <p>Question:</p>
+                  <Input placeholder="Example: Day 1" />
+                  <p>Answer:</p>
+                  <TextArea />
+                  {/* <ReactQuill
+                    style={{ margin: '2%' }}
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                  /> */}
                 </Col>
               </Row>
             </>
