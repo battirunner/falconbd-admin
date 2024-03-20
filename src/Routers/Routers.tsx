@@ -13,7 +13,7 @@ import GroupTicket from '../pages/GroupTicket/GroupTicket';
 import Hajj from '../pages/Hajj/Hajj';
 import Insurance from '../pages/Insurance/Insurance';
 import NotFound from '../pages/NotFound/NotFound';
-import Profile from '../pages/Profile';
+import ProfileNew from '../pages/Profile/ProfileNew';
 import Settings from '../pages/Settings';
 import Tables from '../pages/Tables';
 import Tours from '../pages/Tours/Tours';
@@ -67,7 +67,7 @@ const Routers = () => {
           element={
             <>
               <PageTitle title="Profile | Flying Bird Admin" />
-              <Profile />
+              <ProfileNew />
             </>
           }
         />

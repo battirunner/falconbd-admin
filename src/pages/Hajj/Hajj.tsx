@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import TableTwo from '../../components/Hajj/TableTwo';
 import DefaultLayout from '../../layout/DefaultLayout';

@@ -6,16 +6,8 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import Loader from '../../common/Loader';
 import { AuthState } from '../../types/authState';
-import AddHajjForm from './AddHajjForm';
-
-// const fetcher = async (url: string) => {
-//   try {
-//     const res = await axios.get(url);
-//     return res;
-//   } catch (error) {
-//     return error;
-//   }
-// };
+// import AddHajjForm from './AddHajjForm';
+import AddHajjFormCopy from './AddHajjFormCopy';
 
 const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
   const userInfo = useAppSelector(
@@ -135,7 +127,7 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
     <>
       {showAddPage ? (
         <>
-          <AddHajjForm />
+          <AddHajjFormCopy />
         </>
       ) : (
         <>
