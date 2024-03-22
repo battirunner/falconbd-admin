@@ -7,7 +7,7 @@ import { useAppSelector } from '../../Redux/hooks';
 import Loader from '../../common/Loader';
 import { AuthState } from '../../types/authState';
 // import AddHajjForm from './AddHajjForm';
-import AddHajjFormCopy from './AddHajjFormCopy';
+import AddHajjFormCopy from './AddHajjForm';
 
 const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
   const userInfo = useAppSelector(
@@ -86,27 +86,6 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
     fetchData(page, limit);
   }, []);
 
-  // const { data, error, mutate } = useSWR(
-  //   `${import.meta.env.VITE_BASE_URL}/visa`,
-
-  //   {
-  //     suspense: true,
-  //   }
-  // );
-  // if (error) {
-  //   message.error(error);
-  // } else {
-  //   console.log('check data', data);
-  //   //@ts-ignore
-  //   if(data?.response?.data?.errors){
-  //     //@ts-ignore
-  //     message.error(data?.response?.data?.errors);
-  //   } else {
-  //     //@ts-ignore
-  //     message.error(data?.message)
-  //   }
-
-  // }
 
   const confirm = async (id: string) => {
     console.log(id);
