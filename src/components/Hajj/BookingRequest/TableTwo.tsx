@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../../Redux/hooks';
 import Loader from '../../../common/Loader';
 import { AuthState } from '../../../types/authState';
-import Status from './Status';
+import Status from '../../Status';
 
 const TableTwo = () => {
   const userInfo = useAppSelector(
