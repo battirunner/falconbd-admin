@@ -13,7 +13,7 @@ import GroupTicket from '../pages/GroupTicket/GroupTicket';
 import Hajj from '../pages/Hajj/Hajj';
 import Insurance from '../pages/Insurance/Insurance';
 import NotFound from '../pages/NotFound/NotFound';
-import Profile from '../pages/Profile';
+import ProfileNew from '../pages/Profile/ProfileNew';
 import Settings from '../pages/Settings';
 import Tables from '../pages/Tables';
 import Tours from '../pages/Tours/Tours';
@@ -27,6 +27,9 @@ import UmrahBookingRequest from '../pages/Umrah/BookingRequests';
 import TourBookingRequest from '../pages/Tours/BookingRequests';
 import InsuranceBookingRequest from '../pages/Insurance/BookingRequests';
 import GroupTicketBookingRequest from '../pages/GroupTicket/BookingRequests';
+import Users from '../pages/Users/Users';
+import Airports from '../pages/Airports/Airports';
+import Country from '../pages/Country/Country';
 import Logout from './../pages/Logout/Logout';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -64,7 +67,7 @@ const Routers = () => {
           element={
             <>
               <PageTitle title="Profile | Flying Bird Admin" />
-              <Profile />
+              <ProfileNew />
             </>
           }
         />
@@ -92,6 +95,39 @@ const Routers = () => {
             <>
               <PageTitle title="Tables | Flying Bird Admin" />
               <Tables />
+            </>
+          }
+        />
+        <Route
+          path="/users/all-users"
+          element={
+            <>
+              <PageTitle title="Users | Flying Bird Admin" />
+              <Suspense fallback={<Loader />}>
+                <Users />
+              </Suspense>
+            </>
+          }
+        />
+       < Route
+          path="/airports/all-airports"
+          element={
+            <>
+              <PageTitle title="Airports | Flying Bird Admin" />
+              <Suspense fallback={<Loader />}>
+                <Airports />
+              </Suspense>
+            </>
+          }
+        />
+        < Route
+          path="/country/all-country"
+          element={
+            <>
+              <PageTitle title="Country | Flying Bird Admin" />
+              <Suspense fallback={<Loader />}>
+                <Country />
+              </Suspense>
             </>
           }
         />

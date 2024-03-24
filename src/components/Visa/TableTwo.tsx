@@ -18,7 +18,7 @@ const TableTwo = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
-  const fetchData = async (page:number, limit:number) => {
+  const fetchData = async (page: number, limit: number) => {
     setLoading(true);
     try {
       const res = await axios.get(
@@ -60,7 +60,7 @@ const TableTwo = () => {
       setLoading(false);
       // setData(res.data.data);
       console.log('from delete: ', res.data.data);
-      fetchData(page,limit);
+      fetchData(page, limit);
       // return res.data.data;
     } catch (error) {
       setLoading(false);
@@ -79,7 +79,7 @@ const TableTwo = () => {
   };
 
   useEffect(() => {
-    fetchData(page,limit);
+    fetchData(page, limit);
   }, []);
 
   const confirm = async (id: string) => {
@@ -98,140 +98,148 @@ const TableTwo = () => {
   };
 
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      {loading ? (
-        <>
-          <Loader />
-        </>
-      ) : error ? (
-        <>
-          <div className="py-6 px-4 md:px-6 xl:px-7.5">
-            <h4 className="text-xl font-semibold text-black dark:text-white text-center">
-              {error}
-            </h4>
-          </div>
-        </>
-      ) : data ? (
-        <>
-          <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-            <div className="col-span-2 flex items-center">
-              <p className="font-medium">Title</p>
+    <>
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        {loading ? (
+          <>
+            <Loader />
+          </>
+        ) : error ? (
+          <>
+            <div className="py-6 px-4 md:px-6 xl:px-7.5">
+              <h4 className="text-xl font-semibold text-black dark:text-white text-center">
+                {error}
+              </h4>
             </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Country</p>
-            </div>
-            <div className="col-span-1 hidden items-center sm:flex">
-              <p className="font-medium">Visa Type</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Validity</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Minimum Stay</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Price</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Action</p>
-            </div>
-          </div>
-          {/* @ts-ignore */}
-          {data.map((visa) => (
-            <div
-              className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
-              key={visa.id}
-            >
+          </>
+        ) : data ? (
+          <>
+            <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 bg-slate-300">
               <div className="col-span-2 flex items-center">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  {/* <div className="h-12.5 w-15 rounded-md">
-                    <img src={product.image} alt="Product" />
-                  </div> */}
-                  <p className="text-sm text-black dark:text-white">
-                    {visa.title}
-                  </p>
-                </div>
+                <p className="font-medium">Title</p>
+              </div>
+              <div className="col-span-1 flex items-center">
+                <p className="font-medium">Country</p>
               </div>
               <div className="col-span-1 hidden items-center sm:flex">
-                <p className="text-sm text-black dark:text-white">
-                  {visa.country}
-                </p>
+                <p className="font-medium">Visa Type</p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {visa.visa_category.title}
-                </p>
+                <p className="font-medium">Validity</p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {visa.validity}
-                </p>
+                <p className="font-medium">Minimum Stay</p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">{visa.min_stay}</p>
+                <p className="font-medium">Price</p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">৳{visa.price}</p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <div className="flex">
-                  <button className="mx-2 text-blue-500 w-4">
-                    <EditOutlined style={{ fontSize: '24px' }} />
-                  </button>
-                  <Popconfirm
-                    title="Delete the visa"
-                    description="Are you sure to delete this visa?"
-                    onConfirm={() => confirm(visa.id)}
-                    okText="Yes"
-                    cancelText="No"
-                    okButtonProps={{
-                      style: {
-                        backgroundColor: '#1677ff',
-                      },
-                    }}
-                  >
-                    <button className="btn-primary mx-2 text-red-500 w-4 ">
-                      <DeleteOutlined
-                        style={{
-                          fontSize: '24px',
-                          marginLeft: '2px',
-                          marginRight: '2px',
-                        }}
-                      />
-                    </button>
-                  </Popconfirm>
-
-                  <Link
-                    to={`${import.meta.env.VITE_MAIN_FRONT_URL}/visa?country=${
-                      visa.country
-                    }&visaCategory=${visa.visa_category.title}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <button className="mx-2 text-blue-500 w-4">
-                      <EyeOutlined style={{ fontSize: '24px' }} />
-                    </button>
-                  </Link>
-                </div>
-                {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
+                <p className="font-medium">Action</p>
               </div>
             </div>
-          ))}
-        </>
-      ) : null}
-      <div className="flex items-center justify-center m-4">
-        <Pagination
-          showSizeChanger
-          onShowSizeChange={onShowPageSizeChange}
-          defaultCurrent={1}
-          pageSize={limit}
-          total={totalData}
-          onChange={(page, pageSize) => {
-            fetchData(page, pageSize);
-          }}
-        />
+            {/* @ts-ignore */}
+            {data.map((visa) => (
+              <div
+                className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
+                key={visa.id}
+              >
+                <div className="col-span-2 flex items-center">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                    {/* <div className="h-12.5 w-15 rounded-md">
+                    <img src={product.image} alt="Product" />
+                  </div> */}
+                    <p className="text-sm text-black dark:text-white">
+                      {visa.title}
+                    </p>
+                  </div>
+                </div>
+                <div className="col-span-1 hidden items-center sm:flex">
+                  <p className="text-sm text-black dark:text-white">
+                    {visa.country}
+                  </p>
+                </div>
+                <div className="col-span-1 flex items-center">
+                  <p className="text-sm text-black dark:text-white">
+                    {visa.visa_category.title}
+                  </p>
+                </div>
+                <div className="col-span-1 flex items-center">
+                  <p className="text-sm text-black dark:text-white">
+                    {visa.validity}
+                  </p>
+                </div>
+                <div className="col-span-1 flex items-center">
+                  <p className="text-sm text-meta-3">{visa.min_stay}</p>
+                </div>
+                <div className="col-span-1 flex items-center">
+                  <p className="text-sm text-meta-3">৳{visa.price}</p>
+                </div>
+                <div className="col-span-1 flex items-center">
+                  <div className="flex">
+                    <button className="mx-2 text-blue-500 w-4">
+                      <EditOutlined style={{ fontSize: '24px' }} />
+                    </button>
+                    <Popconfirm
+                      title="Delete the visa"
+                      description="Are you sure to delete this visa?"
+                      onConfirm={() => confirm(visa.id)}
+                      okText="Yes"
+                      cancelText="No"
+                      okButtonProps={{
+                        style: {
+                          backgroundColor: '#1677ff',
+                        },
+                      }}
+                    >
+                      <button className="btn-primary mx-2 text-red-500 w-4 ">
+                        <DeleteOutlined
+                          style={{
+                            fontSize: '24px',
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                          }}
+                        />
+                      </button>
+                    </Popconfirm>
+
+                    <Link
+                      to={`${
+                        import.meta.env.VITE_MAIN_FRONT_URL
+                      }/visa?country=${visa.country}&visaCategory=${
+                        visa.visa_category.title
+                      }`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className="mx-2 text-blue-500 w-4">
+                        <EyeOutlined style={{ fontSize: '24px' }} />
+                      </button>
+                    </Link>
+                  </div>
+                  {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
+                </div>
+              </div>
+            ))}
+          </>
+        ) : null}
       </div>
-    </div>
+      <div className="rounded text-right w-[280px] h-16 block ml-auto border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="flex items-center justify-center m-4">
+          <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowPageSizeChange}
+            defaultCurrent={1}
+            pageSize={limit}
+            total={totalData}
+            onChange={(page, pageSize) => {
+              setPage(page);
+              setLimit(pageSize);
+              fetchData(page, pageSize);
+            }}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 
