@@ -3,13 +3,15 @@ import { useAppDispatch } from './../../Redux/hooks';
 import { useEffect, useState } from 'react';
 import { message } from 'antd';
 import Loader from '../../common/Loader';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { clearCredentials } from '../../Redux/slices/authSlice';
 
 const Logout = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const [error, setError] = useState(location.state?.error || '');
   const logoutFunction = async () => {
     try {
       // await logoutApiCall().unwrap();
@@ -20,7 +22,11 @@ const Logout = () => {
       );
       setLoading(false);
       dispatch(clearCredentials(''));
-      message.success('Logged out!');
+      if (error !== '') {
+        message.info(error);
+      } else {
+        message.success('Logged out!');
+      }
       navigate('/auth/signin');
     } catch (error) {
       dispatch(clearCredentials(''));
