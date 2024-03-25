@@ -1,6 +1,8 @@
 import React from 'react';
 
 const Status: React.FC<{ statusType: string }> = ({ statusType }) => {
+  console.log('check the status', statusType);
+
   interface colorType {
     type: string;
     bg: string;
@@ -11,37 +13,37 @@ const Status: React.FC<{ statusType: string }> = ({ statusType }) => {
   const color: colorType[] = [
     {
       type: 'PENDING',
-      bg: 'red-100',
+      bg: 'red-300',
       text: 'red-800',
       value: 'Pending',
     },
     {
       type: 'PROCESSING',
-      bg: 'yellow-100',
+      bg: 'yellow-300',
       text: 'yellow-800',
       value: 'Processing',
     },
     {
       type: 'READY_TO_RECEIVE',
-      bg: 'purple-100',
+      bg: 'purple-300',
       text: 'purple-800',
       value: 'Ready',
     },
     {
       type: 'RECEIVED',
-      bg: 'blue-100',
+      bg: 'blue-300',
       text: 'blue-800',
       value: 'Received',
     },
     {
       type: 'COMPLETED',
-      bg: 'green-100',
+      bg: 'green-300',
       text: 'green-800',
       value: 'Completed',
     },
     {
       type: 'PAID',
-      bg: 'green-100',
+      bg: 'green-300',
       text: 'green-800',
       value: 'Paid',
     },

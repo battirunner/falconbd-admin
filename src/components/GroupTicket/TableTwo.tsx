@@ -31,14 +31,13 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_BASE_URL
+        `${import.meta.env.VITE_BASE_URL
         }/groupticket?page=${page}&limit=${limit}`,
       );
       setLoading(false);
       setData(res.data.data.result);
       setTotalData(res.data.data.count);
-      console.log('from fetch: ', res.data.data);
+      console.log('from fetch of group ticket: ', res.data.data);
     } catch (error) {
       setLoading(false);
       console.log('from fetch: ', error);
@@ -131,7 +130,7 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
               </>
             ) : data ? (
               <>
-                <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+                <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 bg-slate-300">
                   <div className="col-span-1 flex items-center">
                     <p className="font-medium">Country</p>
                   </div>
@@ -166,8 +165,8 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
                     <div className="col-span-1 flex items-center">
                       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                         {/* <div className="h-12.5 w-15 rounded-md">
-                    <img src={product.image} alt="Product" />
-                  </div> */}
+                          <img src={product.image} alt="Product" />
+                          </div> */}
                         <p className="text-sm text-black dark:text-white">
                           {groupTicket.country}
                         </p>
@@ -185,25 +184,27 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
                     </div>
 
                     <div className="col-span-1 flex items-center">
-                      {JSON.parse(groupTicket.ticket_path).map((ticketPath: any,index:any) => (
-                        <>
-                          <p
-                            key={index}
-                            className="text-sm text-black dark:text-white"
-                          >
-                            {ticketPath.arrival_airport}
-                          </p>
-                          &ensp;
-                        </>
-                      ))}
+                      {JSON.parse(groupTicket.ticket_path).map(
+                        (ticketPath: any, index: any) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-sm text-black dark:text-white"
+                            >
+                              {ticketPath.arrival_airport}
+                            </p>
+                            &ensp;
+                          </>
+                        ),
+                      )}
                     </div>
                     <div className="col-span-1 flex items-center">
-                      <p className="text-sm text-black dark:text-white">
+                      <p className="text-sm text-black dark:text-white max-h-40 text-ellipsis overflow-hidden ...">
                         {groupTicket.baggage}
                       </p>
                     </div>
                     <div className="col-span-1 flex items-center">
-                      <p className="text-sm text-black dark:text-white">
+                      <p className="text-sm text-black dark:text-white max-h-40 text-ellipsis overflow-hidden ...">
                         {groupTicket.policy}
                       </p>
                     </div>
@@ -245,6 +246,22 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
                 ))}
               </>
             ) : null}
+            {/* <div className="flex items-center justify-center m-4">
+              <Pagination
+                showSizeChanger
+                onShowSizeChange={onShowPageSizeChange}
+                defaultCurrent={1}
+                pageSize={limit}
+                total={totalData}
+                onChange={(page, pageSize) => {
+                  fetchData(page, pageSize);
+                }}
+              />
+            </div> */}
+          </div>
+          {/* </>
+      )} */}
+          <div className="rounded text-right w-[280px] h-16 block ml-auto border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="flex items-center justify-center m-4">
               <Pagination
                 showSizeChanger
@@ -253,6 +270,8 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
                 pageSize={limit}
                 total={totalData}
                 onChange={(page, pageSize) => {
+                  setPage(page);
+                  setLimit(pageSize);
                   fetchData(page, pageSize);
                 }}
               />
