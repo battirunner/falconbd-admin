@@ -1,8 +1,14 @@
+// import { useEffect } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import userThree from '../../images/user/user-03.png';
 import DefaultLayout from '../../layout/DefaultLayout';
+// import selectCurrentUser from '../../Redux/slices/authSlice';
 
 const Settings = () => {
+  // useEffect(()=>{
+  //   // const state = selectCurrentUser();
+  //   console.log("check the data", );
+  // }, [])
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-270">
