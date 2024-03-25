@@ -31,8 +31,7 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_BASE_URL
+        `${import.meta.env.VITE_BASE_URL
         }/groupticket?page=${page}&limit=${limit}`,
       );
       setLoading(false);
@@ -260,6 +259,8 @@ const TableTwo: React.FC<{ showAddPage: boolean }> = ({ showAddPage }) => {
               />
             </div> */}
           </div>
+          {/* </>
+      )} */}
           <div className="rounded text-right w-[280px] h-16 block ml-auto border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="flex items-center justify-center m-4">
               <Pagination

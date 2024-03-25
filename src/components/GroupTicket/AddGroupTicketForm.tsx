@@ -222,7 +222,7 @@ const AddGroupTicketForm: React.FC = () => {
                               <Row>
                                 <Col span={5}>
                                   <Form.Item
-                                    label="Available Seats"
+                                    label="Seats"
                                     name="available_seats"
                                     rules={[
                                       {
