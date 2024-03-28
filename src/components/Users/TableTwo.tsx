@@ -1,10 +1,11 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Pagination, PaginationProps, Popconfirm, message } from 'antd';
+import { Row, Col, Pagination, PaginationProps, Popconfirm, message } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../Redux/hooks';
 import Loader from '../../common/Loader';
 import { AuthState } from '../../types/authState';
+import defaultAvatar from '../../images/user/user-01.png';
 
 const TableTwo = () => {
   const userInfo = useAppSelector(
@@ -21,8 +22,7 @@ const TableTwo = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_BASE_ADMIN_URL
+        `${import.meta.env.VITE_BASE_ADMIN_URL
         }/users?page=${page}&limit=${limit}`,
         {
           headers: {
@@ -120,11 +120,11 @@ const TableTwo = () => {
         </>
       ) : data ? (
         <>
-          <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-            <div className="col-span-2 flex items-center">
-              <p className="font-medium">Name</p>
+          <div className="grid grid-cols-8 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 text-center bg-slate-300">
+            <div className="col-span-2 items-center">
+              <p className="font-medium">User</p>
             </div>
-            <div className="col-span-1 flex items-center">
+            {/* <div className="col-span-1 flex items-center">
               <p className="font-medium">Email</p>
             </div>
             <div className="col-span-1 hidden items-center sm:flex">
@@ -132,43 +132,59 @@ const TableTwo = () => {
             </div>
             <div className="col-span-1 flex items-center">
               <p className="font-medium">Address</p>
-            </div>
-            <div className="col-span-1 flex items-center">
+            </div> */}
+            <div className="col-span-2 items-center">
               <p className="font-medium">Agreement</p>
             </div>
             <div className="col-span-1 flex items-center">
               <p className="font-medium">Email Verified</p>
             </div>
-            <div className="col-span-1 flex items-center">
+            <div className="col-span-1 items-center">
               <p className="font-medium">Active</p>
             </div>
-            <div className="col-span-1 flex items-center">
+            <div className="col-span-1 items-center">
               <p className="font-medium">Role</p>
             </div>
-            {/* <div className="col-span-1 flex items-center">
-              <p className="font-medium">Role</p>
-            </div> */}
-            <div className="col-span-1 flex items-center">
+            <div className="col-span-1 items-center">
               <p className="font-medium">Action</p>
             </div>
           </div>
           {/* @ts-ignore */}
           {data.map((user) => (
             <div
-              className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
+              className="grid grid-cols-8 text-center border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
               key={user.id}
             >
-              <div className="col-span-2 flex items-center">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <div className="h-12.5 w-15 rounded-md">
-                    <img src={user.profile} alt="User Profile Image" />
-                  </div>
-                  <p className="text-sm text-black dark:text-white">
-                    {user.name}
-                  </p>
+              <div className="col-span-2 text-left items-center">
+                <div className="gap-4 sm:flex-row sm:items-center">
+                  <Row>
+                    <Col span={8}>
+                      <div className="h-12.5 w-15 rounded-md">
+                        {
+                          user.profile ?
+                          (<img src={user.profile} alt="User Profile Image" />) :
+                          (<img src={defaultAvatar} alt="User Profile Image" />) 
+                        }
+                      </div>
+                    </Col>
+                    <Col span={16} style={{ padding: '0 8px'}}>
+                      <p className="text-sm text-black dark:text-white">
+                        {user.name}
+                      </p>
+                      <p className="text-sm text-black dark:text-white">
+                        {user.email}
+                      </p>
+                      <p className="text-sm text-black dark:text-white">
+                        {user.phone}
+                      </p>
+                      <p className="text-sm text-black dark:text-white">
+                        {user.address}
+                      </p>
+                    </Col>
+                  </Row>
                 </div>
               </div>
-              <div className="col-span-1 hidden items-center sm:flex">
+              {/* <div className="col-span-1 hidden items-center sm:flex">
                 <p className="text-sm text-black dark:text-white">
                   {user.email}
                 </p>
@@ -182,21 +198,21 @@ const TableTwo = () => {
                 <p className="text-sm text-black dark:text-white">
                   {user.address}
                 </p>
-              </div>
-              <div className="col-span-1 flex items-center">
+              </div> */}
+              <div className="col-span-2 items-center">
                 <p className="text-sm text-black">{user.agreement}</p>
               </div>
-              <div className="col-span-1 flex items-center">
+              <div className="col-span-1 items-center">
                 <p className="text-sm text-black">{user.emailVerified}</p>
               </div>
-              <div className="col-span-1 flex items-center">
+              <div className="col-span-1 items-center">
                 <p className="text-sm text-black">{user.active}</p>
               </div>
-              <div className="col-span-1 flex items-center">
+              <div className="col-span-1 items-center">
                 <p className="text-sm text-black">{user.role}</p>
               </div>
-              <div className="col-span-1 flex items-center">
-                <div className="flex">
+              <div className="col-span-1 items-center">
+                <div className="text-center">
                   <button className="mx-2 text-blue-500 w-4">
                     <EditOutlined style={{ fontSize: '24px' }} />
                   </button>

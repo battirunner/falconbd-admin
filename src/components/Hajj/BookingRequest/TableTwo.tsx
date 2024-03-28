@@ -191,10 +191,10 @@ const TableTwo = () => {
                 <p className="py-4 text-center">Booking</p>
               </div>
               <div className="col-span-1">
-                <p className="p-1 text-center">Payment Status</p>
+                <p className="p-1 text-center">Payment</p>
               </div>
               <div className="col-span-1">
-                <p className="p-1 text-center">Approval Status</p>
+                <p className="p-1 text-center">Approval</p>
               </div>
               <div className="col-span-1">
                 <p className="py-4 text-center">Price</p>

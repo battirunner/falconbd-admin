@@ -194,13 +194,13 @@ const TableTwo = () => {
               <p className="font-medium">Location</p>
             </div> */}
               <div className="col-span-1 flex items-center sm:flex">
-                <p className="font-medium">Booking Date</p>
+                <p className="font-medium">Booking</p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="font-medium">Payment Status</p>
+                <p className="font-medium">Payment</p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="font-medium">Approval Status</p>
+                <p className="font-medium">Approval</p>
               </div>
               {/* <div className="col-span-1 flex items-center">
                 <p className="font-medium">Price</p>

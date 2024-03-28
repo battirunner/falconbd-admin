@@ -27,7 +27,7 @@ const TableTwo = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
-  const fetchData = async (page:number,limit:number) => {
+  const fetchData = async (page: number, limit: number) => {
     setLoading(true);
     try {
       const res = await axios.get(
@@ -69,7 +69,7 @@ const TableTwo = () => {
       setLoading(false);
       // setData(res.data.data);
       console.log('from delete: ', res.data.data);
-      fetchData(page,limit);
+      fetchData(page, limit);
       // return res.data.data;
     } catch (error) {
       setLoading(false);
@@ -88,7 +88,7 @@ const TableTwo = () => {
   };
 
   useEffect(() => {
-    fetchData(page,limit);
+    fetchData(page, limit);
   }, []);
 
   // const { data, error, mutate } = useSWR(
@@ -127,77 +127,89 @@ const TableTwo = () => {
     setLimit(pageSize);
     fetchData(current, pageSize);
   };
- 
+
 
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      {loading ? (
-        <>
-          <Loader />
-        </>
-      ) : error ? (
-        <>
-          <div className="py-6 px-4 md:px-6 xl:px-7.5">
-            <h4 className="text-xl font-semibold text-black dark:text-white text-center">
-              {error}
-            </h4>
-          </div>
-        </>
-      ) : data ? (
-        <>
-          <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Title</p>
+    <>
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        {loading ? (
+          <>
+            <Loader />
+          </>
+        ) : error ? (
+          <>
+            <div className="py-6 px-4 md:px-6 xl:px-7.5">
+              <h4 className="text-xl font-semibold text-black dark:text-white text-center">
+                {error}
+              </h4>
             </div>
-            <div className="col-span-1 flex items-center">
+          </>
+        ) : data ? (
+          <>
+            <div className="grid grid-cols-8 bg-slate-300 text-center border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+              <div className="col-span-2 text-center items-center">
+                <p className="font-medium">Tour</p>
+                {/* <p className="font-medium">Location</p>
+              <p className="font-medium">Tour</p> */}
+              </div>
+              {/* <div className="col-span-1 flex items-center">
               <p className="font-medium">Location</p>
             </div>
             <div className="col-span-1 flex items-center">
-              <p className="font-medium">Tour Type</p>
-            </div>
-            <div className="col-span-1 hidden items-center sm:flex">
-              <p className="font-medium">Visa Type</p>
-            </div>
-            <div className="col-span-1 hidden items-center sm:flex">
-              <p className="font-medium">Departure Location</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Duration</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Guests</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Start Date</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">End Date</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Price</p>
-            </div>
-            <div className="col-span-1 flex items-center">
-              <p className="font-medium">Action</p>
-            </div>
-          </div>
-          {/* @ts-ignore */}
-          {data.map((tourPackage) => (
-            <div
-              className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
-              key={tourPackage.id}
-            >
-              <div className="col-span-1 flex items-center">
-                {/* <div className="flex flex-col gap-4 sm:flex-row sm:items-center"> */}
-                {/* <div className="h-12.5 w-15 rounded-md"> */}
-                {/* <img src={product.image} alt="Product" /> */}
-                {/* </div> */}
-                <p className="text-sm text-black dark:text-white">
-                  {tourPackage.title}
-                </p>
-                {/* </div> */}
-              </div>
-
+              <p className="font-medium">Tour</p>
+            </div> */}
+              {/* <div className="col-span-1 hidden items-center sm:flex">
+              <p className="font-medium">Visa</p>
+            </div> */}
               <div className="col-span-1 hidden items-center sm:flex">
+                <p className="font-medium">Departure</p>
+              </div>
+              {/* <div className="col-span-1 flex items-center">
+              <p className="font-medium">Duration</p>
+            </div> */}
+              <div className="col-span-1 text-center items-center">
+                <p className="font-medium">Guests</p>
+              </div>
+              <div className="col-span-2 text-center items-center">
+                <p className="font-medium">Start-End</p>
+              </div>
+              {/* <div className="col-span-1 flex items-center">
+              <p className="font-medium">End</p>
+            </div> */}
+              <div className="col-span-1 text-center items-center">
+                <p className="font-medium">Price</p>
+              </div>
+              <div className="col-span-1 text-center items-center">
+                <p className="font-medium">Action</p>
+              </div>
+            </div>
+            {/* @ts-ignore */}
+            {data.map((tourPackage) => (
+              <div
+                className="grid grid-cols-8 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
+                key={tourPackage.id}
+              >
+                <div className="col-span-2 text-left items-center">
+                  {/* <div className="flex flex-col gap-4 sm:flex-row sm:items-center"> */}
+                  {/* <div className="h-12.5 w-15 rounded-md"> */}
+                  {/* <img src={product.image} alt="Product" /> */}
+                  {/* </div> */}
+                  <p className="text-sm text-black dark:text-white">
+                    {tourPackage.title}
+                  </p>
+                  <p className="text-sm text-black dark:text-white">
+                    {`Location: ${tourPackage.Location.name}`}
+                  </p>
+                  <p className="text-sm text-black dark:text-white">
+                    {`tour: ${tourPackage.tour_type.title}`}
+                  </p>
+                  <p className="text-sm text-black dark:text-white">
+                    {`visa: ${tourPackage.visa_category.title}`}
+                  </p>
+                  {/* </div> */}
+                </div>
+
+                {/* <div className="col-span-1 hidden items-center sm:flex">
                 <p className="text-sm text-black dark:text-white">
                   {tourPackage.Location.name}
                 </p>
@@ -207,92 +219,112 @@ const TableTwo = () => {
                 <p className="text-sm text-black dark:text-white">
                   {tourPackage.tour_type.title}
                 </p>
-              </div>
+              </div> */}
 
-              <div className="col-span-1 flex items-center">
+                {/* <div className="col-span-1 flex items-center">
                 <p className="text-sm text-black dark:text-white">
                   {tourPackage.visa_category.title}
                 </p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {tourPackage.departure_location}
-                </p>
-              </div>
+              </div> */}
+                <div className="col-span-1 text-center items-center">
+                  <p className="text-sm text-black dark:text-white">
+                    {tourPackage.departure_location}
+                  </p>
+                </div>
 
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {tourPackage.duration}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center">
+                <div className="col-span-1 text-center items-center">
+                  <p className="text-sm text-black dark:text-white">
+                    {tourPackage.duration}
+                  </p>
+                  <p className="text-sm">Guest: {tourPackage.guests}</p>
+                </div>
+                {/* <div className="col-span-1 flex items-center">
                 <p className="text-sm text-meta-3">{tourPackage.guests}</p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">
-                  {tourPackage.start_datetime}
-                </p>
-              </div>
-              <div className="col-span-1 flex items-center">
+              </div> */}
+                <div className="col-span-2 text-center items-center">
+                  <p className="text-sm">
+                    {tourPackage.start_datetime}
+                  </p>
+                  <p className="text-sm">
+                    {tourPackage.end_datetime}
+                  </p>
+                </div>
+                {/* <div className="col-span-1 flex items-center">
                 <p className="text-sm text-meta-3">
                   {tourPackage.end_datetime}
                 </p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <p className="text-sm text-meta-3">৳{tourPackage.price}</p>
-              </div>
-              <div className="col-span-1 flex items-center">
-                <div className="flex">
-                  <button className="mx-2 text-blue-500 w-4">
-                    <EditOutlined style={{ fontSize: '24px' }} />
-                  </button>
-                  <Popconfirm
-                    title="Delete the visa"
-                    description="Are you sure to delete this visa?"
-                    onConfirm={() => confirm(tourPackage.id)}
-                    okText="Yes"
-                    cancelText="No"
-                    okButtonProps={{
-                      style: {
-                        backgroundColor: '#1677ff',
-                      },
-                    }}
-                  >
-                    <button className="mx-2 text-red-500 w-4 ">
-                      <DeleteOutlined style={{ fontSize: '24px' }} />
-                    </button>
-                  </Popconfirm>
-                  <Link
-                    to={`${import.meta.env.VITE_MAIN_FRONT_URL}/tourdetails/${
-                      tourPackage.id
-                    }`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <button className="mx-2 text-blue-500 w-4">
-                      <EyeOutlined style={{ fontSize: '24px' }} />
-                    </button>
-                  </Link>
+              </div> */}
+                <div className="col-span-1 text-center items-center">
+                  <p className="text-sm text-meta-3">৳{tourPackage.price}</p>
                 </div>
-                {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
+                <div className="col-span-1 text-center items-center">
+                  <div className="text-center">
+                    <button className="mx-2 text-blue-500 w-4">
+                      <EditOutlined style={{ fontSize: '24px' }} />
+                    </button>
+                    <Popconfirm
+                      title="Delete the visa"
+                      description="Are you sure to delete this visa?"
+                      onConfirm={() => confirm(tourPackage.id)}
+                      okText="Yes"
+                      cancelText="No"
+                      okButtonProps={{
+                        style: {
+                          backgroundColor: '#1677ff',
+                        },
+                      }}
+                    >
+                      <button className="mx-2 text-red-500 w-4 ">
+                        <DeleteOutlined style={{ fontSize: '24px' }} />
+                      </button>
+                    </Popconfirm>
+                    <Link
+                      to={`${import.meta.env.VITE_MAIN_FRONT_URL}/tourdetails/${tourPackage.id
+                        }`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className="mx-2 text-blue-500 w-4">
+                        <EyeOutlined style={{ fontSize: '24px' }} />
+                      </button>
+                    </Link>
+                  </div>
+                  {/* <p className="text-sm text-meta-3">${product.profit}</p> */}
+                </div>
               </div>
-            </div>
-          ))}
-        </>
-      ) : null}
-      <div className="flex items-center justify-center m-4">
-        <Pagination
-          showSizeChanger
-          onShowSizeChange={onShowPageSizeChange}
-          defaultCurrent={1}
-          pageSize={limit}
-          total={totalData}
-          onChange={(page, pageSize) => {
-            fetchData(page, pageSize);
-          }}
-        />
+            ))}
+          </>
+        ) : null}
+        {/* <div className="flex items-center justify-center m-4">
+          <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowPageSizeChange}
+            defaultCurrent={1}
+            pageSize={limit}
+            total={totalData}
+            onChange={(page, pageSize) => {
+              fetchData(page, pageSize);
+            }}
+          />
+        </div> */}
       </div>
-    </div>
+      <div className="rounded text-right w-[280px] h-16 block ml-auto border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="flex items-center justify-center m-4">
+          <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowPageSizeChange}
+            defaultCurrent={1}
+            pageSize={limit}
+            total={totalData}
+            onChange={(page, pageSize) => {
+              setPage(page);
+              setLimit(pageSize);
+              fetchData(page, pageSize);
+            }}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 
